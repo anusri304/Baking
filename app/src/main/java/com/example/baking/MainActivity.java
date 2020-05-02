@@ -3,7 +3,6 @@ package com.example.baking;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.baking.transport.RecipeResponse;
 import com.example.baking.transport.RecipeTransportBean;
 import retrofit2.Call;
 import retrofit2.Callback;
