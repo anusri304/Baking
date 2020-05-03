@@ -45,12 +45,10 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView textView;
-        private CardView cardView;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
-            cardView = itemView.findViewById(R.id.cardView);
             itemView.setOnClickListener(this);
 
         }
@@ -58,8 +56,6 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         void bind(int position) {
             Log.d("Anandhi", "value" + mValues.get(position).getName());
             textView.setText(mValues.get(position).getName());
-
-
         }
 
         @Override
