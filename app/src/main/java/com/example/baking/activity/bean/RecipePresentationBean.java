@@ -2,17 +2,27 @@ package com.example.baking.activity.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.example.baking.bean.Ingredient;
+import com.example.baking.bean.Step;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class RecipePresentationBean implements Parcelable {
     private String name;
-    public RecipePresentationBean(){
+    List<Ingredient> ingredients = new ArrayList<>();
+    List<Step> steps= new ArrayList<>();
+
+    public RecipePresentationBean() {
 
     }
 
     protected RecipePresentationBean(Parcel in) {
         name = in.readString();
+        in.readList(ingredients, Ingredient.class.getClassLoader());
+        in.readList(steps, Step.class.getClassLoader());
     }
 
     public static final Creator<RecipePresentationBean> CREATOR = new Creator<RecipePresentationBean>() {
@@ -34,6 +44,9 @@ public class RecipePresentationBean implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
         parcel.writeString(name);
+        parcel.writeList(ingredients);
+        parcel.writeList(steps);
     }
 }
