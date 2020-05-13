@@ -36,11 +36,11 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
             super(itemView);
             textView = itemView.findViewById(R.id.stepDescTxtView);
         }
-        void bind(int position){
-            Log.d("Anandhi123","value"+mValues.get(position).getInstruction());
-            textView.setText(mValues.get(position).getInstruction());
-        }
 
+        void bind(int position) {
+            Log.d("Anandhi123", "value" + mValues.get(position).getShortDescription());
+            textView.setText(mValues.get(position).getShortDescription());
+        }
 
 
     }
@@ -64,7 +64,7 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
     @Override
     public int getItemCount() {
 
-        Log.d("Anandhi","size"+mValues.size());
-    return mValues.size();
+        Log.d("Anandhi", "size" + mValues.size());
+        return mValues.size();
     }
 }
