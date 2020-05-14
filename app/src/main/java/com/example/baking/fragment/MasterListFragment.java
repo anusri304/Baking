@@ -27,7 +27,8 @@ import java.util.List;
 // The list appears as a grid of images
 public class MasterListFragment extends Fragment {
 
-    String ingredientDesc="";
+    String ingredientDesc = "";
+
     // Override onAttach to make sure that the container activity has implemented the callback
     @Override
     public void onAttach(Context context) {
@@ -53,25 +54,20 @@ public class MasterListFragment extends Fragment {
         // Get a reference to the GridView in the fragment_master_list xml layout file
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_step_desc);
 
-        TextView ingredientTextView = (TextView)  rootView.findViewById(R.id.ingredientTxtView);
+        TextView ingredientTextView = (TextView) rootView.findViewById(R.id.ingredientTxtView);
 
+        RecipePresentationBean recipePresentationBean = getActivity().getIntent().getParcelableExtra(ApplicationConstants.RECIPE);
 
-        //Bundle bundle = getActivity().getIntent().getExtras();
+        List<Ingredient> ingredients = recipePresentationBean.getIngredients();
+        for (Ingredient ingredient : ingredients) {
 
-       //RecipePresentationBean recipePresentationBean= (RecipePresentationBean) bundle.get("key1");
-
-        RecipePresentationBean recipePresentationBean=getActivity().getIntent().getParcelableExtra(ApplicationConstants.RECIPE);
-
-        List<Ingredient> ingredients= recipePresentationBean.getIngredients();
-        for(Ingredient ingredient:ingredients){
-
-            ingredientDesc= ingredient.getQuantity()+ " "+ingredient.getMeasure()+" "+ingredient.getName();
-            ingredientTextView.append(ingredientDesc+ "\n");
+            ingredientDesc = ingredient.getQuantity() + " " + ingredient.getMeasure() + " " + ingredient.getName();
+            ingredientTextView.append(ingredientDesc + "\n");
         }
 
-        Log.d("Anandhi","Fragment" +recipePresentationBean.getIngredients().size());
+        Log.d("Anandhi", "Fragment" + recipePresentationBean.getIngredients().size());
 
-        Log.d("Anandhi","Fragment steps..." +recipePresentationBean.getSteps().size());
+        Log.d("Anandhi", "Fragment steps..." + recipePresentationBean.getSteps().size());
 
         // Create the adapter
         // This adapter takes in the context and an ArrayList of ALL the image resources to display

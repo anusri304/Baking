@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.example.baking.R;
 import com.example.baking.activity.RecipeStepActivity;
 import com.example.baking.activity.bean.RecipePresentationBean;
@@ -44,18 +45,28 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView textView;
+        private final ImageView imageView;
+        private final TextView textViewRecipeName;
+        private final TextView textViewServing;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            imageView = itemView.findViewById(R.id.imageViewRecipe);
+            textViewRecipeName = itemView.findViewById(R.id.recipeNameTxtView);
+            textViewServing = itemView.findViewById(R.id.recipeServingTxtView);
             itemView.setOnClickListener(this);
 
         }
 
-        void bind(int position) {
+        void bind(RecipeViewHolder holder, int position) {
             Log.d("Anandhi", "value" + mValues.get(position).getName());
-            textView.setText(mValues.get(position).getName());
+            textViewRecipeName.setText(mValues.get(position).getName());
+            textViewServing.setText(mValues.get(position).getServing());
+            Glide.with(mContext)
+                    .load(mValues.get(position).getImage())
+                    .placeholder(R.drawable.ic_cake_black_100dp)
+                    .error(R.drawable.ic_cake_black_100dp)
+                    .into(holder.imageView);
         }
 
         @Override
@@ -77,7 +88,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
 
-        holder.bind(position);
+        holder.bind(holder, position);
 
     }
 

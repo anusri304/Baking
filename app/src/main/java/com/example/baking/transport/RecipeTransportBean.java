@@ -11,6 +11,9 @@ import java.util.List;
 public class RecipeTransportBean {
     int id;
     String name;
+    String image;
+    @SerializedName("servings")
+    String serving;
     @SerializedName("ingredients")
     List<Ingredient> ingredients;
     @SerializedName("steps")

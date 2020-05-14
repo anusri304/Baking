@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         for(RecipeTransportBean transportbean:recipes){
             RecipePresentationBean recipePresentationBean = new RecipePresentationBean();
             recipePresentationBean.setName(transportbean.getName());
+            recipePresentationBean.setImage(transportbean.getImage());
+            recipePresentationBean.setServing(ApplicationConstants.SERVING.concat(transportbean.getServing()));
             recipePresentationBean.setIngredients(transportbean.getIngredients());
             recipePresentationBean.setSteps(transportbean.getSteps());
             recipeList.add(recipePresentationBean);
@@ -76,7 +78,9 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         RecipeRecyclerViewAdapter adapter = new RecipeRecyclerViewAdapter(this, recipeList,this);
         recyclerView.setAdapter(adapter);
 
-        GridLayoutManager manager = new GridLayoutManager(this, 1,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager manager = new GridLayoutManager(this, 3);
+
+       // GridLayoutManager manager = new GridLayoutManager(this, 1,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
     }
 

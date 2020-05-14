@@ -13,31 +13,37 @@
 
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-
-<androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/cardIngredientView"
-        android:layout_gravity="center"
-        android:layout_width="190dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="10dp" >
-
-
-    <TextView
-            android:id="@+id/ingredientTxtView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-</androidx.cardview.widget.CardView>
-
-<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_step_desc"
-        android:layout_below="@+id/cardIngredientView"
         android:layout_width="match_parent"
-        android:nestedScrollingEnabled="false"
-        android:layout_height="wrap_content"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            app:cardBackgroundColor="@color/colorCake"
+            android:id="@+id/cardIngredientView"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+
+        <TextView
+                android:id="@+id/ingredientTxtView"
+                android:layout_marginStart="150dp"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_step_desc"
+            android:layout_below="@+id/cardIngredientView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 </RelativeLayout>
 

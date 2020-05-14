@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 public class RecipePresentationBean implements Parcelable {
     private String name;
+    private String image;
+    private String serving;
     List<Ingredient> ingredients = new ArrayList<>();
     List<Step> steps= new ArrayList<>();
 
