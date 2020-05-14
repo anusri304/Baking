@@ -1,6 +1,7 @@
 package com.example.baking.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -14,9 +15,12 @@ import android.widget.GridView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.baking.R;
+import com.example.baking.activity.RecipeInstructionActivity;
 import com.example.baking.activity.bean.RecipePresentationBean;
 import com.example.baking.adapter.MasterListViewAdapter;
+import com.example.baking.adapter.RecipeRecyclerViewAdapter;
 import com.example.baking.bean.Ingredient;
+import com.example.baking.bean.Step;
 import com.example.baking.utils.ApplicationConstants;
 
 import java.util.ArrayList;
@@ -25,9 +29,11 @@ import java.util.List;
 
 // This fragment displays all of the AndroidMe images in one large list
 // The list appears as a grid of images
-public class MasterListFragment extends Fragment {
+public class MasterListFragment extends Fragment implements MasterListViewAdapter.ListItemClickListener{
 
     String ingredientDesc = "";
+    RecipePresentationBean recipePresentationBean;
+    Step step;
 
     // Override onAttach to make sure that the container activity has implemented the callback
     @Override
@@ -56,7 +62,7 @@ public class MasterListFragment extends Fragment {
 
         TextView ingredientTextView = (TextView) rootView.findViewById(R.id.ingredientTxtView);
 
-        RecipePresentationBean recipePresentationBean = getActivity().getIntent().getParcelableExtra(ApplicationConstants.RECIPE);
+        recipePresentationBean = getActivity().getIntent().getParcelableExtra(ApplicationConstants.RECIPE);
 
         List<Ingredient> ingredients = recipePresentationBean.getIngredients();
         for (Ingredient ingredient : ingredients) {
@@ -71,7 +77,7 @@ public class MasterListFragment extends Fragment {
 
         // Create the adapter
         // This adapter takes in the context and an ArrayList of ALL the image resources to display
-        MasterListViewAdapter mAdapter = new MasterListViewAdapter(getContext(), recipePresentationBean.getSteps());
+        MasterListViewAdapter mAdapter = new MasterListViewAdapter(getContext(), recipePresentationBean.getSteps(),this);
 
         // Set the adapter on the GridView
         recyclerView.setAdapter(mAdapter);
@@ -83,6 +89,16 @@ public class MasterListFragment extends Fragment {
         // Set a click listener on the gridView and trigger the callback onImageSelected when an item is clicked
         // Return the root view
         return rootView;
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        Log.d("Anandhi","clicked fragment");
+        step = recipePresentationBean.getSteps().get(clickedItemIndex);
+        Intent intent = new Intent(getContext(), RecipeInstructionActivity.class);
+        intent.putExtra(ApplicationConstants.RECIPE_NAME, recipePresentationBean.getName());
+        intent.putExtra(ApplicationConstants.STEP, step);
+        startActivity(intent);
     }
 
 }
