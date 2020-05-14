@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:id="@+id/relativeLayout"
-               xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -12,6 +12,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginRight="0dp"/>
     <androidx.cardview.widget.CardView
+            android:id="@+id/instructionCardView"
             android:layout_below="@+id/playerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,4 +27,24 @@
                 android:layout_height="200dp"/>
 
     </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+            android:id="@+id/linearLayout"
+            android:layout_below="@+id/instructionCardView"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+        <Button
+                android:id="@+id/buttonPrev"
+                android:layout_width="wrap_content"
+                android:text="@string/previous"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/buttonPrev"
+                android:text="@string/next"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
 </RelativeLayout>

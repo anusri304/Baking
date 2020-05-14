@@ -2,4 +2,6 @@
     <string name="app_name">Baking</string>
     <string name="image_content_description">Recipe Picture</string>
     <string name="recipe_instruction_error_message">Recipe instructions not available</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 </resources>

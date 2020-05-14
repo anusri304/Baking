@@ -96,8 +96,11 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
         Log.d("Anandhi","clicked fragment");
         step = recipePresentationBean.getSteps().get(clickedItemIndex);
         Intent intent = new Intent(getContext(), RecipeInstructionActivity.class);
-        intent.putExtra(ApplicationConstants.RECIPE_NAME, recipePresentationBean.getName());
+        intent.putExtra(ApplicationConstants.RECIPE, recipePresentationBean);
         intent.putExtra(ApplicationConstants.STEP, step);
+        intent.putExtra(ApplicationConstants.TOTAL_STEPS,recipePresentationBean.getSteps().size());
+        intent.putExtra(ApplicationConstants.SELECTED_INDEX,clickedItemIndex);
+
         startActivity(intent);
     }
 
