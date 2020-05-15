@@ -1,7 +1,9 @@
 package com.example.baking.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,6 +14,7 @@ import com.example.baking.activity.bean.RecipePresentationBean;
 import com.example.baking.adapter.RecipeRecyclerViewAdapter;
 import com.example.baking.transport.RecipeTransportBean;
 import com.example.baking.utils.ApplicationConstants;
+import com.example.baking.utils.BakingUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,9 +82,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         RecipeRecyclerViewAdapter adapter = new RecipeRecyclerViewAdapter(this, recipeList, this);
         recyclerView.setAdapter(adapter);
 
-        // GridLayoutManager manager = new GridLayoutManager(this, 3);
-
-        GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+        GridLayoutManager manager = new GridLayoutManager(this, BakingUtils.getSpan(MainActivity.this));
         recyclerView.setLayoutManager(manager);
     }
 
@@ -93,4 +94,9 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         intent.putExtra(ApplicationConstants.RECIPE, recipePresentationBean);
         startActivity(intent);
     }
+
+
+
+
+
 }
