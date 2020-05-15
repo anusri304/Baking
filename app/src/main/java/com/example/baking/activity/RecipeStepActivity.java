@@ -23,7 +23,16 @@ public class RecipeStepActivity extends AppCompatActivity {
     private PlayerView mPlayerView;
     private TextView instructionTextView;
     RelativeLayout relativeLayout;
-    private boolean mTwoPane = false;
+
+    public boolean ismTwoPane() {
+        return mTwoPane;
+    }
+
+    public void setmTwoPane(boolean mTwoPane) {
+        this.mTwoPane = mTwoPane;
+    }
+
+    public boolean mTwoPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +48,10 @@ public class RecipeStepActivity extends AppCompatActivity {
             RecipeInstructionFragment recipeInstructionFragment = new RecipeInstructionFragment(mTwoPane);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
-
+            recipeInstructionFragment.setRecipePresentationBean(recipePresentationBean);
+            recipeInstructionFragment.setSelectedIndex(0);
+            Log.d("pass step","step"+recipePresentationBean.getSteps().get(0));
+            recipeInstructionFragment.setStep(recipePresentationBean.getSteps().get(0));
             fragmentManager.beginTransaction()
                     .add(R.id.recipe_instruction_fragment, recipeInstructionFragment)
                     .commit();

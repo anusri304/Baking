@@ -41,12 +41,14 @@ public class RecipeInstructionFragment extends Fragment {
     private SimpleExoPlayer mExoPlayer;
     private PlayerView mPlayerView;
     private TextView instructionTextView;
-    Step step;
+
+    static Step step;
     RelativeLayout relativeLayout;
-    int totalSteps, selectedIndex;
+    int totalSteps;
+    int selectedIndex;
     RecipePresentationBean recipePresentationBean;
     Button prevButton, nextButton;
-    static boolean isTwoPane;
+    boolean isTwoPane;
 
     @Override
     public void onAttach(Context context) {
@@ -59,27 +61,27 @@ public class RecipeInstructionFragment extends Fragment {
 
     // Mandatory empty constructor
     public RecipeInstructionFragment(boolean isTwoPane) {
-        Log.d("Constructor" ,"constructor");
+        Log.d("Constructor", "constructor");
         this.isTwoPane = isTwoPane;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("onCreateView" ,"onCreateView");
+        Log.d("onCreateView", "onCreateView");
         final View rootView = inflater.inflate(R.layout.fragment_step_instruction, container, false);
         if (getActivity().getIntent() != null) {
-            Log.d("Anandhi", "RecipeInstructionFragment");
-            recipePresentationBean = getActivity().getIntent().getParcelableExtra(ApplicationConstants.RECIPE);
-            totalSteps = recipePresentationBean.getSteps().size();
-            Log.d("Anandhi", "RecipeInstructionFragmentSize" + totalSteps);
-            selectedIndex = getActivity().getIntent().getIntExtra(ApplicationConstants.SELECTED_INDEX, 0);
-            step = recipePresentationBean.getSteps().get(selectedIndex);
-            if(!isTwoPane) {
+            if (!isTwoPane) {
+                Log.d("Anandhi", "RecipeInstructionFragment");
+                recipePresentationBean = getActivity().getIntent().getParcelableExtra(ApplicationConstants.RECIPE);
+                totalSteps = recipePresentationBean.getSteps().size();
+                Log.d("Anandhi", "RecipeInstructionFragmentSize" + totalSteps);
+                selectedIndex = getActivity().getIntent().getIntExtra(ApplicationConstants.SELECTED_INDEX, 0);
+                step = recipePresentationBean.getSteps().get(selectedIndex);
+
                 initButton(rootView);
-            }
-            else {
-                Log.d("RecipeInstructionFragment","isTwoPane");
+            } else {
+                Log.d("RecipeInstructionFragment", "isTwoPane");
                 hideButtons(rootView);
             }
         } else {
@@ -89,7 +91,12 @@ public class RecipeInstructionFragment extends Fragment {
         return rootView;
     }
 
+    public void setStep(Step step) {
+        this.step = step;
+    }
+
     private void initViews(Step step, View rootView) {
+        Log.d("Inside init view", "step" + step);
         mPlayerView = (PlayerView) rootView.findViewById(R.id.playerView);
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -242,10 +249,18 @@ public class RecipeInstructionFragment extends Fragment {
     }
 
     public void hideButtons(View view) {
-        Log.d("view","view"+view);
+        Log.d("view", "view" + view);
         prevButton = view.findViewById(R.id.buttonPrev);
         nextButton = view.findViewById(R.id.buttonNext);
         prevButton.setVisibility(View.GONE);
         nextButton.setVisibility(View.GONE);
+    }
+
+    public void setSelectedIndex(int selectedIndex) {
+        this.selectedIndex = selectedIndex;
+    }
+
+    public void setRecipePresentationBean(RecipePresentationBean recipePresentationBean) {
+        this.recipePresentationBean = recipePresentationBean;
     }
 }

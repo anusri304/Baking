@@ -12,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.baking.R;
 import com.example.baking.activity.RecipeInstructionActivity;
+import com.example.baking.activity.RecipeStepActivity;
 import com.example.baking.activity.bean.RecipePresentationBean;
 import com.example.baking.adapter.MasterListViewAdapter;
 import com.example.baking.adapter.RecipeRecyclerViewAdapter;
@@ -34,6 +36,7 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
     String ingredientDesc = "";
     RecipePresentationBean recipePresentationBean;
     Step step;
+    int itemClicked;
 
     // Override onAttach to make sure that the container activity has implemented the callback
     @Override
@@ -93,15 +96,29 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-      //  Log.d("Anandhi","clicked fragment");
-        step = recipePresentationBean.getSteps().get(clickedItemIndex);
-        Intent intent = new Intent(getContext(), RecipeInstructionActivity.class);
-        intent.putExtra(ApplicationConstants.RECIPE, recipePresentationBean);
-        intent.putExtra(ApplicationConstants.STEP, step);
-        intent.putExtra(ApplicationConstants.TOTAL_STEPS,recipePresentationBean.getSteps().size());
-        intent.putExtra(ApplicationConstants.SELECTED_INDEX,clickedItemIndex);
+       Log.d("Anandhi","clickedItemIndex" +clickedItemIndex);
+        if(!((RecipeStepActivity)getActivity()).ismTwoPane()) {
+            step = recipePresentationBean.getSteps().get(clickedItemIndex);
+            Intent intent = new Intent(getContext(), RecipeInstructionActivity.class);
+            intent.putExtra(ApplicationConstants.RECIPE, recipePresentationBean);
+            intent.putExtra(ApplicationConstants.STEP, step);
+            intent.putExtra(ApplicationConstants.TOTAL_STEPS, recipePresentationBean.getSteps().size());
+            intent.putExtra(ApplicationConstants.SELECTED_INDEX, clickedItemIndex);
 
-        startActivity(intent);
+            startActivity(intent);
+        }
+        else {
+            RecipeInstructionFragment recipeInstructionFragment = new RecipeInstructionFragment(true);
+
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            recipeInstructionFragment.setRecipePresentationBean(recipePresentationBean);
+            recipeInstructionFragment.setSelectedIndex(clickedItemIndex);
+            Log.d("pass step","step"+recipePresentationBean.getSteps().get(clickedItemIndex));
+            recipeInstructionFragment.setStep(recipePresentationBean.getSteps().get(clickedItemIndex));
+            fragmentManager.beginTransaction()
+                    .replace(R.id.recipe_instruction_fragment, recipeInstructionFragment)
+                    .commit();
+        }
     }
 
 }
