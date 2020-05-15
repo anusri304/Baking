@@ -75,8 +75,7 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
 
     @Override
     public int getItemCount() {
-
-        Log.d("Anandhi", "size" + mValues.size());
+      //  Log.d("Anandhi", "size" + mValues.size());
         return mValues.size();
     }
 }

@@ -59,7 +59,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         }
 
         void bind(RecipeViewHolder holder, int position) {
-            Log.d("Anandhi", "value" + mValues.get(position).getName());
+          //  Log.d("Anandhi", "value" + mValues.get(position).getName());
             textViewRecipeName.setText(mValues.get(position).getName());
             textViewServing.setText(mValues.get(position).getServing());
             Glide.with(mContext)
@@ -95,7 +95,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     @Override
     public int getItemCount() {
 
-        Log.d("Anandhi", "size" + mValues.size());
+      //  Log.d("Anandhi", "size" + mValues.size());
         return mValues.size();
     }
 }

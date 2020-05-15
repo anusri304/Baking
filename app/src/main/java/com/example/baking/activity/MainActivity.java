@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = findViewById(R.id.rv_movies);
+        recyclerView = findViewById(R.id.rv_recipe);
 
         Log.d(this.getClass().getName(), "Create ");
         getRecipes();
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        Log.d("Anandhi", "clicked");
+     //   Log.d("Anandhi", "clicked");
         RecipePresentationBean recipePresentationBean = recipeList.get(clickedItemIndex);
         Intent intent = new Intent(this, RecipeStepActivity.class);
         intent.putExtra(ApplicationConstants.RECIPE, recipePresentationBean);

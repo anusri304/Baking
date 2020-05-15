@@ -6,13 +6,12 @@
         android:layout_marginRight="10dp"
         android:layout_gravity="center"
         app:cardBackgroundColor="@color/colorCake"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
        android:layout_marginTop="10dp">
 
     <TextView
             android:id="@+id/stepDescTxtView"
-            android:layout_marginStart="150dp"
             android:layout_marginTop="10dp"
             android:textColor="#000"
             android:textSize="18sp"

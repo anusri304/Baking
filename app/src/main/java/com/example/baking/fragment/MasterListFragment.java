@@ -71,9 +71,9 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
             ingredientTextView.append(ingredientDesc + "\n");
         }
 
-        Log.d("Anandhi", "Fragment" + recipePresentationBean.getIngredients().size());
+       // Log.d("Anandhi", "Fragment" + recipePresentationBean.getIngredients().size());
 
-        Log.d("Anandhi", "Fragment steps..." + recipePresentationBean.getSteps().size());
+     //   Log.d("Anandhi", "Fragment steps..." + recipePresentationBean.getSteps().size());
 
         // Create the adapter
         // This adapter takes in the context and an ArrayList of ALL the image resources to display
@@ -93,7 +93,7 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        Log.d("Anandhi","clicked fragment");
+      //  Log.d("Anandhi","clicked fragment");
         step = recipePresentationBean.getSteps().get(clickedItemIndex);
         Intent intent = new Intent(getContext(), RecipeInstructionActivity.class);
         intent.putExtra(ApplicationConstants.RECIPE, recipePresentationBean);
