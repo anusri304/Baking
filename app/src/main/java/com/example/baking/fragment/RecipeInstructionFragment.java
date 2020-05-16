@@ -100,8 +100,8 @@ public class RecipeInstructionFragment extends Fragment {
         Log.d("Inside init view", "step" + step);
         mPlayerView = (PlayerView) rootView.findViewById(R.id.playerView);
         int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // In landscape
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
+            // In landscape only for phone
             mPlayerView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
         }
 
