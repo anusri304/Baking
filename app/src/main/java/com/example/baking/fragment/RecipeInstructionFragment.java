@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.fragment.app.Fragment;
+import com.bumptech.glide.Glide;
 import com.example.baking.R;
 import com.example.baking.activity.RecipeInstructionActivity;
 import com.example.baking.activity.bean.RecipePresentationBean;
@@ -105,7 +106,7 @@ public class RecipeInstructionFragment extends Fragment {
         }
 
         if (step.getVideoURL() == null || step.getVideoURL().equalsIgnoreCase("")) {
-            initImageView(rootView);
+            initImageView(rootView,step);
 
         } else {
             initThumbNailPic(step);
@@ -140,14 +141,23 @@ public class RecipeInstructionFragment extends Fragment {
 
     }
 
-    private void initImageView(View rootView) {
+    private void initImageView(View rootView,Step step) {
         mPlayerView.setVisibility(View.INVISIBLE);
         relativeLayout = rootView.findViewById(R.id.relativeLayout);
+
         ImageView imageView = new ImageView(getActivity().getApplicationContext());
-        imageView.setImageResource(R.drawable.errorvideo);
         imageView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 400));
         imageView.setVisibility(View.VISIBLE);
         relativeLayout.addView(imageView);
+
+        // If video url is not available try loading the image from the thumbnail URL.
+        // If there is no thumbnail URL, load the error video image
+
+        Glide.with(getActivity())
+                .load(step.getThumbnailURL())
+                .placeholder(R.drawable.errorvideo)
+                .error(R.drawable.errorvideo)
+                .into(imageView);
     }
 
     private void initButton(View rootView) {
