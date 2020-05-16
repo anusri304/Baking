@@ -1,4 +1,4 @@
-package com.example.baking;
+package com.example.baking.service;
 
 import com.example.baking.transport.RecipeTransportBean;
 import retrofit2.Call;

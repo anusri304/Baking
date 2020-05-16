@@ -1,20 +1,24 @@
 package com.example.baking.activity;
 
-import android.content.Context;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.baking.R;
-import com.example.baking.RecipeService;
 import com.example.baking.activity.bean.RecipePresentationBean;
 import com.example.baking.adapter.RecipeRecyclerViewAdapter;
+import com.example.baking.bean.Ingredient;
+import com.example.baking.domain.Recipe;
+import com.example.baking.executors.AppExecutors;
+import com.example.baking.repository.RecipeRepository;
+import com.example.baking.service.RecipeService;
 import com.example.baking.transport.RecipeTransportBean;
 import com.example.baking.utils.ApplicationConstants;
 import com.example.baking.utils.BakingUtils;
+import com.example.baking.utils.MyApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     private static Retrofit retrofit = null;
     RecyclerView recyclerView;
     List<RecipePresentationBean> recipeList = new ArrayList<>();
+    String ingredientDesc = "";
+    StringBuffer ingredientBuffer = new StringBuffer();
+   // RecipeViewModel recipeViewModel;
     //TODO: Remove logs
 
     @Override
@@ -39,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
         Log.d(this.getClass().getName(), "Create ");
         getRecipes();
+//        RecipeViewModelFactory factory = new RecipeViewModelFactory((Application) getApplicationContext());
+//        recipeViewModel = new ViewModelProvider(this, factory).get(RecipeViewModel.class);
+
+       // recipeViewModel.getRecipe().observe(this,recipe -> {})
+
+
     }
 
     private void getRecipes() {
@@ -72,11 +85,13 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         recipeList.clear();
         for (RecipeTransportBean transportbean : recipes) {
             RecipePresentationBean recipePresentationBean = new RecipePresentationBean();
+            recipePresentationBean.setId(transportbean.getId());
             recipePresentationBean.setName(transportbean.getName());
             recipePresentationBean.setImage(transportbean.getImage());
             recipePresentationBean.setServing(ApplicationConstants.SERVING.concat(transportbean.getServing()));
             recipePresentationBean.setIngredients(transportbean.getIngredients());
             recipePresentationBean.setSteps(transportbean.getSteps());
+            insertRecipe(recipePresentationBean);
             recipeList.add(recipePresentationBean);
         }
         RecipeRecyclerViewAdapter adapter = new RecipeRecyclerViewAdapter(this, recipeList, this);
@@ -88,7 +103,13 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-     //   Log.d("Anandhi", "clicked");
+        //   Log.d("Anandhi", "clicked");
+
+//        recipeViewModel.getRecipe().observe(this, recipe -> {
+//            Log.d("Anandhi....",recipe.getName());
+//
+//        });
+
         RecipePresentationBean recipePresentationBean = recipeList.get(clickedItemIndex);
         Intent intent = new Intent(this, RecipeStepActivity.class);
         intent.putExtra(ApplicationConstants.RECIPE, recipePresentationBean);
@@ -96,7 +117,30 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     }
 
 
+    private void insertRecipe(RecipePresentationBean recipePresentationBean) {
+        List<Ingredient> ingredients = recipePresentationBean.getIngredients();
+        String ingredientDesc="";
+        for (Ingredient ingredient : ingredients) {
+            ingredientDesc = ingredientDesc + ingredient.getQuantity() + " " + ingredient.getMeasure() + " " + ingredient.getName() + "\n";
 
+        }
+        Recipe recipe = new Recipe();
+        recipe.setId(recipePresentationBean.getId());
+        recipe.setName(recipePresentationBean.getName());
+        recipe.setServings(recipePresentationBean.getServing());
+        recipe.setIngredients(ingredientDesc);
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            saveRecipe(recipe);
+
+        });
+
+    }
+
+    private void saveRecipe(Recipe recipe){
+        RecipeRepository recipeRepository = new RecipeRepository((Application)getApplicationContext());
+        recipeRepository.insertRecipe(recipe);
+
+    }
 
 
 }
