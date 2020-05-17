@@ -67,7 +67,7 @@ public class MainActivityIntentTest {
      */
 
     @Test
-    public void clickRecyclerViewItem_OpensRecipeStepActivity1() throws Exception {
+    public void clickRecyclerViewItem_OpensRecipeStepActivity() throws Exception {
 
         onView(withId(R.id.rv_recipe))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click())); //click on first item
