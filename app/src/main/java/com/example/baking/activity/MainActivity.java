@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         List<Ingredient> ingredients = recipePresentationBean.getIngredients();
         String ingredientDesc="";
         for (Ingredient ingredient : ingredients) {
-            ingredientDesc = ingredientDesc + ApplicationConstants.formatNumber(ingredient.getQuantity()) + " " + ingredient.getMeasure() + " " + ingredient.getName() + "\n";
+            ingredientDesc = ingredientDesc + BakingUtils.formatNumber(ingredient.getQuantity()) + " " + ingredient.getMeasure() + " " + ingredient.getName() + "\n";
 
         }
         Recipe recipe = new Recipe();

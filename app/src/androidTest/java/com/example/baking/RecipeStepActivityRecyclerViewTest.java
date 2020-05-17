@@ -2,12 +2,17 @@ package com.example.baking;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Context;
+import android.content.Intent;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import com.example.baking.activity.MainActivity;
 import com.example.baking.activity.RecipeStepActivity;
+import com.example.baking.utils.ApplicationConstants;
+import com.example.baking.utils.BakingUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,15 +33,17 @@ public class RecipeStepActivityRecyclerViewTest {
     public static final String RECIPE_INSTRUCTION_INTRODUCTION = "Recipe Introduction";
 
     @Rule
-    public IntentsTestRule<RecipeStepActivity> mActivityTestRule = new IntentsTestRule<>(RecipeStepActivity.class);
-
-    @Before
-    public void stubAllExternalIntents() {
-        // By default Espresso Intents does not stub any Intents. Stubbing needs to be setup before
-        // every test run. In this case all external Intents will be blocked.
-        intending(not(isInternal())).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
-    }
-
+    public ActivityTestRule<RecipeStepActivity> mActivityRule =
+            new ActivityTestRule<RecipeStepActivity>(RecipeStepActivity.class) {
+                @Override
+                protected Intent getActivityIntent() {
+                    Context targetContext = InstrumentationRegistry.getInstrumentation()
+                            .getTargetContext();
+                    Intent result = new Intent(targetContext, RecipeStepActivity.class);
+                    result.putExtra(ApplicationConstants.RECIPE, BakingUtils.setUpMock());
+                    return result;
+                }
+            };
 
 
     @Test

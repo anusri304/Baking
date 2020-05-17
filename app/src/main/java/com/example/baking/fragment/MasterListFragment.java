@@ -24,6 +24,7 @@ import com.example.baking.adapter.RecipeRecyclerViewAdapter;
 import com.example.baking.bean.Ingredient;
 import com.example.baking.bean.Step;
 import com.example.baking.utils.ApplicationConstants;
+import com.example.baking.utils.BakingUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
         List<Ingredient> ingredients = recipePresentationBean.getIngredients();
         for (Ingredient ingredient : ingredients) {
 
-            ingredientDesc = ApplicationConstants.formatNumber(ingredient.getQuantity()) + " " + ingredient.getMeasure() + " " + ingredient.getName();
+            ingredientDesc = BakingUtils.formatNumber(ingredient.getQuantity()) + " " + ingredient.getMeasure() + " " + ingredient.getName();
             ingredientTextView.append(ingredientDesc + "\n");
         }
         // Create the adapter
