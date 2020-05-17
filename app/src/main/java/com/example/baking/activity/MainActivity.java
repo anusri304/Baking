@@ -18,12 +18,13 @@ import com.example.baking.service.RecipeService;
 import com.example.baking.transport.RecipeTransportBean;
 import com.example.baking.utils.ApplicationConstants;
 import com.example.baking.utils.BakingUtils;
-import com.example.baking.utils.MyApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import androidx.test.espresso.idling.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,9 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     List<RecipePresentationBean> recipeList = new ArrayList<>();
     String ingredientDesc = "";
     StringBuffer ingredientBuffer = new StringBuffer();
-   // RecipeViewModel recipeViewModel;
+    CountingIdlingResource  espressoTestIdlingResource = new CountingIdlingResource("Network_Call");
+
+    // RecipeViewModel recipeViewModel;
     //TODO: Remove logs
 
     @Override
@@ -46,12 +49,6 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
         Log.d(this.getClass().getName(), "Create ");
         getRecipes();
-//        RecipeViewModelFactory factory = new RecipeViewModelFactory((Application) getApplicationContext());
-//        recipeViewModel = new ViewModelProvider(this, factory).get(RecipeViewModel.class);
-
-       // recipeViewModel.getRecipe().observe(this,recipe -> {})
-
-
     }
 
     private void getRecipes() {
@@ -61,22 +58,24 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
+        espressoTestIdlingResource.increment();
         RecipeService recipeService = retrofit.create(RecipeService.class);
         Call<List<RecipeTransportBean>> call = recipeService.getRecipes();
         call.enqueue(new Callback<List<RecipeTransportBean>>() {
             @Override
             public void onResponse(Call<List<RecipeTransportBean>> call, Response<List<RecipeTransportBean>> response) {
                 List<RecipeTransportBean> recipes = response.body();
+                espressoTestIdlingResource.decrement();
 
                 Log.d(this.getClass().getName(), "recipes " + recipes.size());
                 setData(recipes);
-                // recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
                 Log.d(this.getClass().getName(), "Number of recipes received: " + recipes.size());
             }
 
             @Override
             public void onFailure(Call<List<RecipeTransportBean>> call, Throwable throwable) {
                 Log.e(this.getClass().getName(), throwable.toString());
+                espressoTestIdlingResource.decrement();
             }
         });
     }
@@ -103,13 +102,6 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-        //   Log.d("Anandhi", "clicked");
-
-//        recipeViewModel.getRecipe().observe(this, recipe -> {
-//            Log.d("Anandhi....",recipe.getName());
-//
-//        });
-
         RecipePresentationBean recipePresentationBean = recipeList.get(clickedItemIndex);
         Intent intent = new Intent(this, RecipeStepActivity.class);
         intent.putExtra(ApplicationConstants.RECIPE, recipePresentationBean);
@@ -121,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         List<Ingredient> ingredients = recipePresentationBean.getIngredients();
         String ingredientDesc="";
         for (Ingredient ingredient : ingredients) {
-            ingredientDesc = ingredientDesc + ingredient.getQuantity() + " " + ingredient.getMeasure() + " " + ingredient.getName() + "\n";
+            ingredientDesc = ingredientDesc + ApplicationConstants.formatNumber(ingredient.getQuantity()) + " " + ingredient.getMeasure() + " " + ingredient.getName() + "\n";
 
         }
         Recipe recipe = new Recipe();
@@ -140,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         RecipeRepository recipeRepository = new RecipeRepository((Application)getApplicationContext());
         recipeRepository.insertRecipe(recipe);
 
+    }
+
+    public CountingIdlingResource getEspressoIdlingResourceForMainActivity() {
+        return espressoTestIdlingResource;
     }
 
 

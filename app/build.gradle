@@ -64,4 +64,10 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.2.5"
     implementation("org.projectlombok:lombok:${lombokVersion}")
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
 }

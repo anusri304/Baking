@@ -106,27 +106,6 @@ public class RecipeInstructionFragment extends Fragment {
 
              RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) mPlayerView.getLayoutParams();  //View.getLayoutParams() returns the                                                                                                          LayoutParams object of the view
              layoutParams.width= ViewGroup.LayoutParams.MATCH_PARENT;
-     // layoutParams.height= ViewGroup.LayoutParams.MATCH_PARENT;  //modify the properties of the
-
-           // mPlayerView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-
-//            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            // getActivity().getSupportActionBar().hide();
-
-
-//            DisplayMetrics displaymetrics = new DisplayMetrics();
-//            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-//            int height = displaymetrics.heightPixels;
-//            int width = displaymetrics.widthPixels;
-//            android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) mPlayerView.getLayoutParams();
-//            params.width = width;
-//            params.height=height;// -80 for android controls
-//            params.setMargins(0, 0, 0, 0);
-//
-//            instructionTextView = (TextView) rootView.findViewById(R.id.instructionTxtView);
-//            instructionTextView.setVisibility(View.GONE);
-//            hideButtons(rootView);
         }
 
         if (step.getVideoURL() == null || step.getVideoURL().equalsIgnoreCase("")) {

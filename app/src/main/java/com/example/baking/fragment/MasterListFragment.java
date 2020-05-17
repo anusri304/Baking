@@ -70,7 +70,7 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
         List<Ingredient> ingredients = recipePresentationBean.getIngredients();
         for (Ingredient ingredient : ingredients) {
 
-            ingredientDesc = ingredient.getQuantity() + " " + ingredient.getMeasure() + " " + ingredient.getName();
+            ingredientDesc = ApplicationConstants.formatNumber(ingredient.getQuantity()) + " " + ingredient.getMeasure() + " " + ingredient.getName();
             ingredientTextView.append(ingredientDesc + "\n");
         }
 
