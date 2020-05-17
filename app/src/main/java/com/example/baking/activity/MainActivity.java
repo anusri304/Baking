@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     List<RecipePresentationBean> recipeList = new ArrayList<>();
     String ingredientDesc = "";
     StringBuffer ingredientBuffer = new StringBuffer();
-    CountingIdlingResource  espressoTestIdlingResource = new CountingIdlingResource("Network_Call");
+    CountingIdlingResource  espressoTestIdlingResource = new CountingIdlingResource(ApplicationConstants.NETWORK_CALL);
 
     // RecipeViewModel recipeViewModel;
     //TODO: Remove logs

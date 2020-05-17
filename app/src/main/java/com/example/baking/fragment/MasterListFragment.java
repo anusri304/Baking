@@ -73,11 +73,6 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
             ingredientDesc = ApplicationConstants.formatNumber(ingredient.getQuantity()) + " " + ingredient.getMeasure() + " " + ingredient.getName();
             ingredientTextView.append(ingredientDesc + "\n");
         }
-
-       // Log.d("Anandhi", "Fragment" + recipePresentationBean.getIngredients().size());
-
-     //   Log.d("Anandhi", "Fragment steps..." + recipePresentationBean.getSteps().size());
-
         // Create the adapter
         // This adapter takes in the context and an ArrayList of ALL the image resources to display
         MasterListViewAdapter mAdapter = new MasterListViewAdapter(getContext(), recipePresentationBean.getSteps(),this);

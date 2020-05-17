@@ -10,6 +10,7 @@ public class ApplicationConstants {
     public static final String TOTAL_STEPS ="totalSteps" ;
     public static final String SELECTED_INDEX ="selectedIndex" ;
     public static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
+    public static final String NETWORK_CALL = "Network_Call" ;
 
    public static String formatNumber(double number) {
        DecimalFormat format=new DecimalFormat("#,###.#");

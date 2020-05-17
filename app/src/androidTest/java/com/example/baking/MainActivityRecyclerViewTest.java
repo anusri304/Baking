@@ -3,6 +3,7 @@ package com.example.baking;
 
 
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -32,7 +33,7 @@ import static org.hamcrest.Matchers.anything;
 
 
 @RunWith(AndroidJUnit4.class)
-public class MainActivityScreenTest {
+public class MainActivityRecyclerViewTest {
 
     public static final String INGREDIENTS = "2 CUP Graham Cracker crumbs"
             .concat("\n")
@@ -68,7 +69,7 @@ public class MainActivityScreenTest {
     public void registerIdlingResource() {
         mIdlingResource = mActivityTestRule.getActivity().getEspressoIdlingResourceForMainActivity();
         // To prove that the test fails, omit this call:
-        Espresso.registerIdlingResources(mIdlingResource);
+        IdlingRegistry.getInstance().register(mIdlingResource);
     }
 
     /**
