@@ -10,10 +10,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
@@ -102,11 +101,36 @@ public class RecipeInstructionFragment extends Fragment {
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
             // In landscape only for phone
-            mPlayerView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+            Log.d("Anandhi pane", "not two pane");
+
+
+             RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) mPlayerView.getLayoutParams();  //View.getLayoutParams() returns the                                                                                                          LayoutParams object of the view
+             layoutParams.width= ViewGroup.LayoutParams.MATCH_PARENT;
+     // layoutParams.height= ViewGroup.LayoutParams.MATCH_PARENT;  //modify the properties of the
+
+           // mPlayerView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+
+//            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            // getActivity().getSupportActionBar().hide();
+
+
+//            DisplayMetrics displaymetrics = new DisplayMetrics();
+//            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+//            int height = displaymetrics.heightPixels;
+//            int width = displaymetrics.widthPixels;
+//            android.widget.RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) mPlayerView.getLayoutParams();
+//            params.width = width;
+//            params.height=height;// -80 for android controls
+//            params.setMargins(0, 0, 0, 0);
+//
+//            instructionTextView = (TextView) rootView.findViewById(R.id.instructionTxtView);
+//            instructionTextView.setVisibility(View.GONE);
+//            hideButtons(rootView);
         }
 
         if (step.getVideoURL() == null || step.getVideoURL().equalsIgnoreCase("")) {
-            initImageView(rootView,step);
+            initImageView(rootView, step);
 
         } else {
             initThumbNailPic(step);
@@ -141,7 +165,7 @@ public class RecipeInstructionFragment extends Fragment {
 
     }
 
-    private void initImageView(View rootView,Step step) {
+    private void initImageView(View rootView, Step step) {
         mPlayerView.setVisibility(View.INVISIBLE);
         relativeLayout = rootView.findViewById(R.id.relativeLayout);
 

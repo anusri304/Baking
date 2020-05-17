@@ -22,7 +22,7 @@
         </receiver>
         <service android:name=".service.DisplayIngredientService" />
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -30,7 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RecipeStepActivity"/>
-        <activity android:name=".activity.RecipeInstructionActivity"/>
+        <activity android:name=".activity.RecipeInstructionActivity"
+                  android:configChanges="orientation|keyboard|keyboardHidden|screenSize"/>
     </application>
 
 </manifest>
