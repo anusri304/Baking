@@ -28,9 +28,13 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
+import static org.junit.Assume.assumeTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class RecipeStepIntentTest {
+    RecipeStepActivity recipeStepActivity;
+
+
 
     @Rule
     public ActivityTestRule<RecipeStepActivity> activityRule = new ActivityTestRule<>(RecipeStepActivity.class, true, false);
@@ -46,13 +50,16 @@ public class RecipeStepIntentTest {
     public void clickRecyclerViewItem_OpensRecipeInstructionActivity() throws Exception {
         Context targetContext = InstrumentationRegistry.getInstrumentation()
                 .getTargetContext();
-        Intent result = new Intent(targetContext, RecipeStepActivity.class);
-        result.putExtra(ApplicationConstants.RECIPE, BakingUtils.setUpMock());
-        activityRule.launchActivity(result);
+        Boolean isTabletUsed = targetContext.getResources().getBoolean(R.bool.tablet);
+        if(!isTabletUsed) {
+            Intent result = new Intent(targetContext, RecipeStepActivity.class);
+            result.putExtra(ApplicationConstants.RECIPE, BakingUtils.setUpMock());
+            activityRule.launchActivity(result);
 
-        onView(withId(R.id.rv_step_desc))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        intended(hasComponent(RecipeInstructionActivity.class.getName()));
+            onView(withId(R.id.rv_step_desc))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            intended(hasComponent(RecipeInstructionActivity.class.getName()));
+        }
 
     }
 

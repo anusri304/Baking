@@ -1,5 +1,6 @@
 package com.example.baking.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import com.example.baking.activity.bean.RecipePresentationBean;
@@ -159,6 +160,15 @@ public class BakingUtils {
         DecimalFormat format=new DecimalFormat("#,###.#");
         //  decimalFormat.setDecimalSeparatorAlwaysShown(true);
         return format.format(number);
+    }
+
+    public static boolean isScreenSw600dp(Activity context) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        float widthDp = displayMetrics.widthPixels / displayMetrics.density;
+        float heightDp = displayMetrics.heightPixels / displayMetrics.density;
+        float screenSw = Math.min(widthDp, heightDp);
+        return screenSw >= 600;
     }
 
 }
