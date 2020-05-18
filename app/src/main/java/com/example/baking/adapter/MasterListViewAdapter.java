@@ -1,8 +1,6 @@
 package com.example.baking.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +46,6 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
         }
 
         void bind(int position) {
-            Log.d("Anandhi123", "value" + mValues.get(position).getShortDescription());
             textView.setText(mValues.get(position).getShortDescription());
         }
 
@@ -75,7 +72,7 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
         if(selectedPosition==position)
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
         else
             holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorCake));
         holder.bind(position);
@@ -84,7 +81,6 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
 
     @Override
     public int getItemCount() {
-      //  Log.d("Anandhi", "size" + mValues.size());
         return mValues.size();
     }
 

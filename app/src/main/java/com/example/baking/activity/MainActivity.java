@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.idling.CountingIdlingResource;
@@ -37,15 +38,14 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     StringBuffer ingredientBuffer = new StringBuffer();
     CountingIdlingResource  espressoTestIdlingResource = new CountingIdlingResource(ApplicationConstants.NETWORK_CALL);
 
-    //TODO: Remove logs
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.rv_recipe);
-
-        Log.d(this.getClass().getName(), "Create ");
+//        Toolbar toolbar =  findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
         getRecipes();
     }
 
@@ -64,10 +64,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
             public void onResponse(Call<List<RecipeTransportBean>> call, Response<List<RecipeTransportBean>> response) {
                 List<RecipeTransportBean> recipes = response.body();
                 espressoTestIdlingResource.decrement();
-
-                Log.d(this.getClass().getName(), "recipes " + recipes.size());
                 setData(recipes);
-                Log.d(this.getClass().getName(), "Number of recipes received: " + recipes.size());
             }
 
             @Override

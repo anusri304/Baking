@@ -10,11 +10,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.baking.R;
@@ -62,27 +62,21 @@ public class RecipeInstructionFragment extends Fragment {
 
     // Mandatory empty constructor
     public RecipeInstructionFragment(boolean isTwoPane) {
-        Log.d("Constructor", "constructor");
         this.isTwoPane = isTwoPane;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("onCreateView", "onCreateView");
         final View rootView = inflater.inflate(R.layout.fragment_step_instruction, container, false);
         if (getActivity().getIntent() != null) {
             if (!isTwoPane) {
-                Log.d("Anandhi", "RecipeInstructionFragment");
                 recipePresentationBean = getActivity().getIntent().getParcelableExtra(ApplicationConstants.RECIPE);
                 totalSteps = recipePresentationBean.getSteps().size();
-                Log.d("Anandhi", "RecipeInstructionFragmentSize" + totalSteps);
                 selectedIndex = getActivity().getIntent().getIntExtra(ApplicationConstants.SELECTED_INDEX, 0);
                 step = recipePresentationBean.getSteps().get(selectedIndex);
-
                 initButton(rootView);
             } else {
-                Log.d("RecipeInstructionFragment", "isTwoPane");
                 hideButtons(rootView);
             }
         } else {
@@ -97,14 +91,10 @@ public class RecipeInstructionFragment extends Fragment {
     }
 
     private void initViews(Step step, View rootView) {
-        Log.d("Inside init view", "step" + step);
         mPlayerView = (PlayerView) rootView.findViewById(R.id.playerView);
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE && !isTwoPane) {
             // In landscape only for phone
-            Log.d("Anandhi pane", "not two pane");
-
-
              RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) mPlayerView.getLayoutParams();  //View.getLayoutParams() returns the                                                                                                          LayoutParams object of the view
              layoutParams.width= ViewGroup.LayoutParams.MATCH_PARENT;
         }
@@ -150,7 +140,7 @@ public class RecipeInstructionFragment extends Fragment {
         relativeLayout = rootView.findViewById(R.id.relativeLayout);
 
         ImageView imageView = new ImageView(getActivity().getApplicationContext());
-        imageView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 400));
+        imageView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 600));
         imageView.setVisibility(View.VISIBLE);
         relativeLayout.addView(imageView);
 
@@ -212,7 +202,6 @@ public class RecipeInstructionFragment extends Fragment {
     private void initializePlayer(Uri mediaUri) {
         if (mExoPlayer == null) {
             // Create an instance of the ExoPlayer.
-            //  Log.d("Anandhi", "if block");
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), trackSelector, loadControl);
@@ -220,7 +209,6 @@ public class RecipeInstructionFragment extends Fragment {
 
         // Prepare the MediaSource.
         mPlayerView.setPlayer(mExoPlayer);
-        //  Log.d("Anandhi", "else block");
         String userAgent = Util.getUserAgent(getActivity(), getString(R.string.app_name));
         MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                 getActivity(), userAgent), new DefaultExtractorsFactory(), null, null);
@@ -263,7 +251,6 @@ public class RecipeInstructionFragment extends Fragment {
     }
 
     public void hideButtons(View view) {
-        Log.d("view", "view" + view);
         prevButton = view.findViewById(R.id.buttonPrev);
         nextButton = view.findViewById(R.id.buttonNext);
         prevButton.setVisibility(View.GONE);

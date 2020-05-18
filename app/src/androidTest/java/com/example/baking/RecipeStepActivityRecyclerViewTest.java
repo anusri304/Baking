@@ -21,8 +21,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 public class RecipeStepActivityRecyclerViewTest {
+    /**
+     * This test demos a user clicking on a Recycler View item item in RecipeStepActivity which opens up the
+     * corresponding RecipeInstructionActivity. This test is used to check that the RecipeInstructionActivity has the correct data.
+     */
 
-    public static final String RECIPE_INSTRUCTION_INTRODUCTION = "Recipe Introduction";
 
     @Rule
     public ActivityTestRule<RecipeStepActivity> mActivityRule =
@@ -36,7 +39,9 @@ public class RecipeStepActivityRecyclerViewTest {
                     return result;
                 }
             };
-
+    /**
+     * This method is used to test that the recycler view item for the  RecipeInstructionActivity has the correct data
+     */
 
     @Test
     public void clickRecyclerViewItem_OpensRecipeInstructionActivity() throws Exception {
@@ -45,7 +50,7 @@ public class RecipeStepActivityRecyclerViewTest {
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click())); //click on first item
 
         onView(withId(R.id.instructionTxtView))
-                .check(matches(withText(RECIPE_INSTRUCTION_INTRODUCTION)));
+                .check(matches(withText(ApplicationConstants.RECIPE_INSTRUCTION_INTRODUCTION)));
 
 
     }

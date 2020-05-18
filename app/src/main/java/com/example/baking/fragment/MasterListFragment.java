@@ -3,11 +3,12 @@ package com.example.baking.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -69,6 +70,8 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
             ingredientDesc = BakingUtils.formatNumber(ingredient.getQuantity()) + " " + ingredient.getMeasure() + " " + ingredient.getName();
             ingredientTextView.append(ingredientDesc + "\n");
         }
+
+
         // Create the adapter
         // This adapter takes in the context and an ArrayList of ALL the image resources to display
         MasterListViewAdapter mAdapter = new MasterListViewAdapter(getContext(), recipePresentationBean.getSteps(),this);
@@ -90,7 +93,6 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
-       Log.d("Anandhi","clickedItemIndex" +clickedItemIndex);
         if(!((RecipeStepActivity)getActivity()).ismTwoPane()) {
             step = recipePresentationBean.getSteps().get(clickedItemIndex);
             Intent intent = new Intent(getContext(), RecipeInstructionActivity.class);
@@ -107,7 +109,6 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             recipeInstructionFragment.setRecipePresentationBean(recipePresentationBean);
             recipeInstructionFragment.setSelectedIndex(clickedItemIndex);
-            Log.d("pass step","step"+recipePresentationBean.getSteps().get(clickedItemIndex));
             recipeInstructionFragment.setStep(recipePresentationBean.getSteps().get(clickedItemIndex));
             fragmentManager.beginTransaction()
                     .replace(R.id.recipe_instruction_fragment, recipeInstructionFragment)

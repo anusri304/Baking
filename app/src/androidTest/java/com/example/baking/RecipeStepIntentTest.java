@@ -25,26 +25,34 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
 public class RecipeStepIntentTest {
-    RecipeStepActivity recipeStepActivity;
 
+    /**
+     * This test demos a user clicking on a Recycler View item in RecipeStepActivity which opens up the
+     * corresponding RecipeInstructionActivity. This test is used to test that the launched intent has correct data.
+     */
+
+    RecipeStepActivity recipeStepActivity;
 
 
     @Rule
     public ActivityTestRule<RecipeStepActivity> activityRule = new ActivityTestRule<>(RecipeStepActivity.class, true, false);
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         Intents.init();
     }
 
-
+    /**
+     * Clicks on a Recycler view item and check the intent details are correct.
+     * As the intents are launched only for phones the check is made that the test runs on a phone and not on a tablet
+     */
 
     @Test
-    public void clickRecyclerViewItem_OpensRecipeInstructionActivity() throws Exception {
+    public void clickRecyclerViewItem_AndCheckIntent()  {
         Context targetContext = InstrumentationRegistry.getInstrumentation()
                 .getTargetContext();
         Boolean isTabletUsed = BakingUtils.isTablet(targetContext);
-        if(!isTabletUsed) {
+        if (!isTabletUsed) {
             Intent result = new Intent(targetContext, RecipeStepActivity.class);
             result.putExtra(ApplicationConstants.RECIPE, BakingUtils.setUpMock());
             activityRule.launchActivity(result);
@@ -57,7 +65,7 @@ public class RecipeStepIntentTest {
     }
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() {
         Intents.release();
     }
 }

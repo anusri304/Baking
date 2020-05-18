@@ -8,6 +8,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 import com.example.baking.activity.MainActivity;
+import com.example.baking.utils.ApplicationConstants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,36 +21,14 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 /**
- * This test demos a user clicking on a GridView item in MenuActivity which opens up the
- * corresponding OrderActivity.
- * <p>
- * This test does not utilize Idling Resources yet. If idling is set in the MenuActivity,
- * then this test will fail. See the IdlingResourcesTest for an identical test that
- * takes into account Idling Resources.
+ * This test demos a user clicking on a Recycler View item item in MainActivity which opens up the
+ * corresponding RecipeStepActivity. This test is used to check that the RecipeStepActivity has the correct data.
  */
 
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityRecyclerViewTest {
 
-    public static final String INGREDIENTS = "2 CUP Graham Cracker crumbs"
-            .concat("\n")
-            .concat("6 TBLSP unsalted butter, melted")
-            .concat("\n")
-            .concat("0,5 CUP granulated sugar")
-            .concat("\n")
-            .concat("1,5 TSP salt")
-            .concat("\n")
-            .concat("5 TBLSP vanilla")
-            .concat("\n")
-            .concat("1 K Nutella or other chocolate-hazelnut spread")
-            .concat("\n")
-            .concat("500 G Mascapone Cheese(room temperature)")
-            .concat("\n")
-            .concat("1 CUP heavy cream(cold)")
-            .concat("\n")
-            .concat("4 OZ cream cheese(softened)")
-            .concat("\n");
     /**
      * The ActivityTestRule is a rule provided by Android used for functional testing of a single
      * activity. The activity that will be tested will be launched before each test that's annotated
@@ -70,13 +49,18 @@ public class MainActivityRecyclerViewTest {
     }
 
     /**
-     * Clicks on a GridView item and checks it opens up the OrderActivity with the correct details.
+     * This method is used to test that the recycler view item for the  main activity has the correct data
      */
     @Test
-    public void test() {
+    public void loadRecipeRecyclerView() {
         onView(withRecyclerView(R.id.rv_recipe).atPosition(0))
-                .check(matches(hasDescendant(withText("Nutella Pie"))));
+                .check(matches(hasDescendant(withText(ApplicationConstants.NUTELLA_PIE))));
     }
+
+    /**
+     * This method is used to test that the on click of recycler view for the  main activity launches the RecipeStepActivity
+     *  with correct data
+     */
 
     @Test
     public void clickGridViewItem_OpensRecipeStepActivity() throws Exception {
@@ -84,9 +68,9 @@ public class MainActivityRecyclerViewTest {
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click())); //click on first item
 
         onView(withId(R.id.ingredientTxtView))
-                .check(matches(withText(INGREDIENTS)));
+                .check(matches(withText(ApplicationConstants.INGREDIENTS)));
 
-        onView(withText(INGREDIENTS)).check(matches(isDisplayed()));
+        onView(withText(ApplicationConstants.INGREDIENTS)).check(matches(isDisplayed()));
     }
 
     @After

@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 import com.example.baking.R;
 import com.example.baking.activity.MainActivity;
@@ -18,7 +17,6 @@ public class BakingAppWidgetProvider extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 String ingredients, int appWidgetId) {
-        //CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
         views.setTextViewText(R.id.appwidget_text, ingredients);
@@ -34,7 +32,6 @@ public class BakingAppWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         //Start the intent service update widget action, the service takes care of updating the widgets UI
-        Log.d("Anandhi", "onUpdate called");
         DisplayIngredientService.startActionDisplayIngredientWidgets(context);
     }
 
