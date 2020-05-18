@@ -224,7 +224,6 @@ public class RecipeInstructionFragment extends Fragment {
 
     private void closeOnError() {
         getActivity().finish();
-        Toast.makeText(getActivity(), R.string.recipe_instruction_error_message, Toast.LENGTH_SHORT).show();
     }
 
 
