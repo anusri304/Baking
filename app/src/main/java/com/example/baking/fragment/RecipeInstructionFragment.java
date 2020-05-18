@@ -103,9 +103,14 @@ public class RecipeInstructionFragment extends Fragment {
 
         } else {
             initThumbNailPic(step);
-            initializePlayer(Uri.parse(step.getVideoURL()));
         }
         initInstructionView(rootView, step);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializePlayer(Uri.parse(step.getVideoURL()));
     }
 
     private void initInstructionView(View rootView, Step step) {
@@ -234,18 +239,11 @@ public class RecipeInstructionFragment extends Fragment {
         mExoPlayer = null;
     }
 
-    /**
-     * Release the player when the activity is destroyed.
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        releasePlayer();
-    }
+
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         releasePlayer();
     }
 
