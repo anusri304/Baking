@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 import com.example.baking.activity.MainActivity;
+import com.example.baking.activity.RecipeInstructionActivity;
 import com.example.baking.activity.RecipeStepActivity;
 import com.example.baking.utils.ApplicationConstants;
 import com.example.baking.utils.BakingUtils;
@@ -23,7 +24,8 @@ import java.util.regex.Matcher;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.*;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 
@@ -31,29 +33,31 @@ import static org.hamcrest.Matchers.allOf;
 public class RecipeStepIntentTest {
 
     @Rule
-    public IntentsTestRule<RecipeStepActivity> mActivityRule =
-            new IntentsTestRule<RecipeStepActivity>(RecipeStepActivity.class) {
-                @Override
-                protected Intent getActivityIntent() {
-                    Context targetContext = InstrumentationRegistry.getInstrumentation()
-                            .getTargetContext();
-                    Intent result = new Intent(targetContext, RecipeStepActivity.class);
-                    result.putExtra(ApplicationConstants.RECIPE, BakingUtils.setUpMock());
-                    return result;
-                }
-            };
+    public ActivityTestRule<RecipeStepActivity> activityRule = new ActivityTestRule<>(RecipeStepActivity.class, true, false);
+
+    @Before
+    public void setUp() throws Exception{
+        Intents.init();
+    }
+
+
 
     @Test
     public void clickRecyclerViewItem_OpensRecipeInstructionActivity() throws Exception {
+        Context targetContext = InstrumentationRegistry.getInstrumentation()
+                .getTargetContext();
+        Intent result = new Intent(targetContext, RecipeStepActivity.class);
+        result.putExtra(ApplicationConstants.RECIPE, BakingUtils.setUpMock());
+        activityRule.launchActivity(result);
+
         onView(withId(R.id.rv_step_desc))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click())); //click on first item
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        intended(hasComponent(RecipeInstructionActivity.class.getName()));
 
+    }
 
-
-        intended(
-
-                toPackage("com.example.baking.activity"));
-
-
+    @After
+    public void tearDown() throws Exception{
+        Intents.release();
     }
 }
