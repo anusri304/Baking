@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     StringBuffer ingredientBuffer = new StringBuffer();
     CountingIdlingResource  espressoTestIdlingResource = new CountingIdlingResource(ApplicationConstants.NETWORK_CALL);
 
-    // RecipeViewModel recipeViewModel;
     //TODO: Remove logs
 
     @Override
