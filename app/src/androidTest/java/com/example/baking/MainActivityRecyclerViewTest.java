@@ -9,6 +9,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 import com.example.baking.activity.MainActivity;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,8 +19,7 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.anything;
 
 /**
@@ -84,7 +84,17 @@ public class MainActivityRecyclerViewTest {
         onView(withId(R.id.ingredientTxtView))
                 .check(matches(withText(INGREDIENTS)));
 
+        onView(withText(INGREDIENTS)).check(matches(isDisplayed()));
 
+
+    }
+    @After
+    public void deRegisterIdlingResource() {
+        //mIdlingResource = mActivityTestRule.getActivity().getEspressoIdlingResourceForMainActivity();
+        // To prove that the test fails, omit this call:
+        if(mIdlingResource !=null) {
+            IdlingRegistry.getInstance().unregister(mIdlingResource);
+        }
     }
 
 }

@@ -8,8 +8,10 @@ import com.example.baking.bean.Ingredient;
 import com.example.baking.bean.Step;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class BakingUtils {
 
@@ -157,7 +159,10 @@ public class BakingUtils {
     }
 
     public static String formatNumber(double number) {
-        DecimalFormat format=new DecimalFormat("#,###.#");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setDecimalSeparator(',');
+        symbols.setGroupingSeparator('.');
+        DecimalFormat format=new DecimalFormat("#,###.#",symbols);
         //  decimalFormat.setDecimalSeparatorAlwaysShown(true);
         return format.format(number);
     }
