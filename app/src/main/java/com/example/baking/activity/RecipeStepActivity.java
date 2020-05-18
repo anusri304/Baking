@@ -2,10 +2,8 @@ package com.example.baking.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import com.example.baking.R;
 import com.example.baking.activity.bean.RecipePresentationBean;

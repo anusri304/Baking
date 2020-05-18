@@ -72,7 +72,7 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
         if(selectedPosition==position)
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorSelector));
         else
             holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorCake));
         holder.bind(position);
