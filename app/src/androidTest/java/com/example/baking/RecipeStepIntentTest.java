@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.intent.Intents;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-import com.example.baking.activity.MainActivity;
 import com.example.baking.activity.RecipeInstructionActivity;
 import com.example.baking.activity.RecipeStepActivity;
 import com.example.baking.utils.ApplicationConstants;
@@ -19,16 +17,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.regex.Matcher;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.Matchers.allOf;
-import static org.junit.Assume.assumeTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class RecipeStepIntentTest {

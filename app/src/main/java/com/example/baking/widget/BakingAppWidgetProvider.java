@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Display;
 import android.widget.RemoteViews;
 import com.example.baking.R;
 import com.example.baking.activity.MainActivity;

@@ -4,14 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
-import androidx.fragment.app.Fragment;
-
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.TextView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +17,11 @@ import com.example.baking.activity.RecipeInstructionActivity;
 import com.example.baking.activity.RecipeStepActivity;
 import com.example.baking.activity.bean.RecipePresentationBean;
 import com.example.baking.adapter.MasterListViewAdapter;
-import com.example.baking.adapter.RecipeRecyclerViewAdapter;
 import com.example.baking.bean.Ingredient;
 import com.example.baking.bean.Step;
 import com.example.baking.utils.ApplicationConstants;
 import com.example.baking.utils.BakingUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

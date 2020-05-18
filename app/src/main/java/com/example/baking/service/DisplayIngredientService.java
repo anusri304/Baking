@@ -6,7 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.*;
+import androidx.lifecycle.LifecycleObserver;
 import com.example.baking.domain.Recipe;
 import com.example.baking.repository.RecipeRepository;
 import com.example.baking.utils.MyApplication;

@@ -1,26 +1,17 @@
 package com.example.baking.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.baking.R;
-import com.example.baking.activity.RecipeStepActivity;
 import com.example.baking.activity.bean.RecipePresentationBean;
-import com.example.baking.transport.RecipeTransportBean;
 
-import java.text.BreakIterator;
-import java.util.ArrayList;
 import java.util.List;
 
 

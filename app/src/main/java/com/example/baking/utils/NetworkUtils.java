@@ -15,10 +15,6 @@
  */
 package com.example.baking.utils;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.net.Uri;
 
 import java.io.IOException;
@@ -26,7 +22,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**

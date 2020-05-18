@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.idling.CountingIdlingResource;
 import com.example.baking.R;
 import com.example.baking.activity.bean.RecipePresentationBean;
 import com.example.baking.adapter.RecipeRecyclerViewAdapter;
@@ -23,8 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import androidx.test.espresso.idling.*;
-
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,13 +1,5 @@
 package com.example.baking.utils;
 
-import com.example.baking.activity.bean.RecipePresentationBean;
-import com.example.baking.bean.Ingredient;
-import com.example.baking.bean.Step;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 public class ApplicationConstants {
     public static final String RECIPE= "recipe";
     public static final String SERVING= "Serves: ";
