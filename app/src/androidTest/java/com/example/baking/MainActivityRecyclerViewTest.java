@@ -2,25 +2,29 @@
 package com.example.baking;
 
 
-import androidx.test.espresso.Espresso;
+import android.view.View;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 import com.example.baking.activity.MainActivity;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static org.hamcrest.Matchers.anything;
 
 /**
  * This test demos a user clicking on a GridView item in MenuActivity which opens up the
@@ -76,6 +80,12 @@ public class MainActivityRecyclerViewTest {
      * Clicks on a GridView item and checks it opens up the OrderActivity with the correct details.
      */
     @Test
+    public void test() {
+        onView(withRecyclerView(R.id.rv_recipe).atPosition(0))
+                .check(matches(hasDescendant(withText("Nutella Pie"))));
+    }
+
+    @Test
     public void clickGridViewItem_OpensRecipeStepActivity() throws Exception {
 
         onView(withId(R.id.rv_recipe))
@@ -88,13 +98,40 @@ public class MainActivityRecyclerViewTest {
 
 
     }
+
     @After
     public void deRegisterIdlingResource() {
         //mIdlingResource = mActivityTestRule.getActivity().getEspressoIdlingResourceForMainActivity();
         // To prove that the test fails, omit this call:
-        if(mIdlingResource !=null) {
+        if (mIdlingResource != null) {
             IdlingRegistry.getInstance().unregister(mIdlingResource);
         }
     }
+
+    public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {
+        // checkNotNull(itemMatcher);
+        return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has item at position " + position + ": ");
+                itemMatcher.describeTo(description);
+            }
+
+            @Override
+            protected boolean matchesSafely(final RecyclerView view) {
+                RecyclerView.ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
+                if (viewHolder == null) {
+                    // has no item on such position
+                    return false;
+                }
+                return itemMatcher.matches(viewHolder.itemView);
+            }
+        };
+    }
+
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
+    }
+
 
 }
