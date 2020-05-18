@@ -43,7 +43,7 @@ public class RecipeStepIntentTest {
     public void clickRecyclerViewItem_OpensRecipeInstructionActivity() throws Exception {
         Context targetContext = InstrumentationRegistry.getInstrumentation()
                 .getTargetContext();
-        Boolean isTabletUsed = targetContext.getResources().getBoolean(R.bool.tablet);
+        Boolean isTabletUsed = BakingUtils.isTablet(targetContext);
         if(!isTabletUsed) {
             Intent result = new Intent(targetContext, RecipeStepActivity.class);
             result.putExtra(ApplicationConstants.RECIPE, BakingUtils.setUpMock());

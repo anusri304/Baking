@@ -1,12 +1,14 @@
 package com.example.baking.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.baking.R;
 import com.example.baking.bean.Step;
@@ -18,6 +20,8 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
 
     final List<Step> mValues;
     final Context mContext;
+    int selectedPosition=-1;
+
     private final MasterListViewAdapter.ListItemClickListener mOnClickListener;
 
     public interface ListItemClickListener {
@@ -51,7 +55,9 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
         @Override
         public void onClick(View view) {
             int clickedPosition = getAdapterPosition();
+            selectedPosition=clickedPosition;
             mOnClickListener.onListItemClick(clickedPosition);
+            notifyDataSetChanged();
         }
 
 
@@ -68,7 +74,10 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
 
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
-
+        if(selectedPosition==position)
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+        else
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorCake));
         holder.bind(position);
 
     }
@@ -77,5 +86,9 @@ public class MasterListViewAdapter extends RecyclerView.Adapter<MasterListViewAd
     public int getItemCount() {
       //  Log.d("Anandhi", "size" + mValues.size());
         return mValues.size();
+    }
+
+    public void setSelectedPosition(int selectedPosition) {
+        this.selectedPosition = selectedPosition;
     }
 }

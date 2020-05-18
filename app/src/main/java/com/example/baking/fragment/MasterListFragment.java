@@ -73,7 +73,10 @@ public class MasterListFragment extends Fragment implements MasterListViewAdapte
         // This adapter takes in the context and an ArrayList of ALL the image resources to display
         MasterListViewAdapter mAdapter = new MasterListViewAdapter(getContext(), recipePresentationBean.getSteps(),this);
 
-        // Set the adapter on the GridView
+        // Select the first item if it is a two pane
+        if( BakingUtils.isTablet(getContext())) {
+            mAdapter.setSelectedPosition(0);
+        }
         recyclerView.setAdapter(mAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());

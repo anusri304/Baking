@@ -3,6 +3,7 @@ package com.example.baking.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import com.example.baking.R;
 import com.example.baking.activity.bean.RecipePresentationBean;
 import com.example.baking.bean.Ingredient;
 import com.example.baking.bean.Step;
@@ -174,6 +175,10 @@ public class BakingUtils {
         float heightDp = displayMetrics.heightPixels / displayMetrics.density;
         float screenSw = Math.min(widthDp, heightDp);
         return screenSw >= 600;
+    }
+
+    public static boolean isTablet(Context context){
+        return context.getResources().getBoolean(R.bool.tablet);
     }
 
 }
